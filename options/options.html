@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GTA 6 Spoiler Shield – Settings</title>
+  <link rel="stylesheet" href="../shared/theme.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="side">
+      <div class="brand">
+        <img src="../assets/icons/icon48.png" alt="" width="36" height="36">
+        <div>
+          <h1>GTA 6 Spoiler Shield</h1>
+          <p>YouTube only. Runs locally.</p>
+        </div>
+      </div>
+      <nav aria-label="Settings sections">
+        <a href="#sec-filtering">Filtering</a>
+        <a href="#sec-display">Display and behavior</a>
+        <a href="#sec-keywords">Keywords</a>
+        <a href="#sec-test">Test titles</a>
+        <a href="#sec-stats">Statistics</a>
+        <a href="#sec-backup">Backup and reset</a>
+      </nav>
+      <label class="master">
+        <span>Filtering</span>
+        <span class="switch"><input id="master" type="checkbox" aria-label="Filtering on or off"><span class="slider"></span></span>
+      </label>
+    </aside>
+
+    <main class="main">
+      <section id="sec-filtering" class="card">
+        <h2>Filtering mode</h2>
+        <div id="modeCards" class="mode-cards" role="radiogroup" aria-label="Filtering mode">
+          <label class="mode-card"><input type="radio" name="mode" value="balanced">
+            <span class="mc-title">Balanced</span>
+            <span class="mc-text">Blocks GTA identifiers, known locations and unique character names. Common names (Jason, Brian, Raul…) only match next to spoiler-style words.</span></label>
+          <label class="mode-card"><input type="radio" name="mode" value="strict">
+            <span class="mc-title">Strict spoiler mode <em>default</em></span>
+            <span class="mc-text">Spoilers matter more than false positives. Common names block on their own, generic phrases like “Ending” count next to game-related words, and obfuscated spellings like “G T A 6” are caught.</span></label>
+          <label class="mode-card"><input type="radio" name="mode" value="custom">
+            <span class="mc-title">Custom</span>
+            <span class="mc-text">Choose which keyword categories are active and how sensitive matching is.</span></label>
+        </div>
+
+        <div id="customPanel" class="custom-panel">
+          <p id="customNote" class="note"></p>
+          <div class="row">
+            <label for="sensitivity">Matching sensitivity</label>
+            <select id="sensitivity">
+              <option value="low">Low: names need a generic spoiler phrase</option>
+              <option value="medium">Medium: same rules as Balanced</option>
+              <option value="high">High: same rules as Strict</option>
+            </select>
+          </div>
+          <h3>Keyword categories</h3>
+          <div id="categoryList" class="cat-list"></div>
+        </div>
+      </section>
+
+      <section id="sec-display" class="card">
+        <h2>Display and behavior</h2>
+        <div class="opt">
+          <div><strong>Show a placeholder for hidden videos</strong>
+            <p>Leaves a small “Video hidden by GTA 6 Spoiler Shield.” notice instead of removing the card completely.</p></div>
+          <label class="switch"><input id="optPlaceholder" type="checkbox" aria-label="Show placeholder"><span class="slider"></span></label>
+        </div>
+        <div class="opt">
+          <div><strong>Allow “Show anyway” on placeholders</strong>
+            <p>Adds a button that reveals one hidden video. Off by default. Hidden videos are never revealed automatically. Needs the placeholder.</p></div>
+          <label class="switch"><input id="optReveal" type="checkbox" aria-label="Allow reveal"><span class="slider"></span></label>
+        </div>
+        <div class="opt">
+          <div><strong>Skip past hidden Shorts</strong>
+            <p>In the Shorts feed, move on automatically when the current Short is hidden. Hidden Shorts are always paused.</p></div>
+          <label class="switch"><input id="optSkip" type="checkbox" aria-label="Skip hidden Shorts"><span class="slider"></span></label>
+        </div>
+      </section>
+
+      <section id="sec-keywords" class="card">
+        <h2>Keywords</h2>
+        <p class="lead">Changes apply to every mode right away. Category switches and sensitivity only apply in Custom mode.</p>
+
+        <div class="toolbar">
+          <input id="kwSearch" type="search" placeholder="Search keywords…" aria-label="Search keywords">
+          <button id="restoreDeleted" type="button" class="ghost" hidden>Restore deleted keywords</button>
+        </div>
+
+        <div id="addForm" class="add-form">
+          <input id="addText" type="text" maxlength="120" placeholder="New keyword, e.g. Franklin Clinton" aria-label="New keyword">
+          <select id="addKind" aria-label="Keyword type">
+            <option value="direct">Always block</option>
+            <option value="strict">Strict: always</option>
+            <option value="name">Common name</option>
+            <option value="context">Needs context</option>
+            <option value="soft">Context helper</option>
+            <option value="namectx">Name-context word</option>
+          </select>
+          <button id="addBtn" type="button" class="primary">Add keyword</button>
+        </div>
+        <p id="addMsg" class="msg" role="status"></p>
+
+        <div id="kwList" class="kw-list"></div>
+
+        <h3 class="sub">Contextual combinations</h3>
+        <p class="lead">Rules that block when several terms appear together.</p>
+        <div id="comboList" class="combo-list"></div>
+      </section>
+
+      <section id="sec-test" class="card">
+        <h2>Test titles</h2>
+        <p class="lead">One title per line. See what each mode does with your current keyword list.</p>
+        <textarea id="testInput" rows="8" spellcheck="false" aria-label="Titles to test"></textarea>
+        <div class="toolbar"><button id="testBtn" type="button" class="primary">Run test</button></div>
+        <div id="testResults" class="test-results"></div>
+      </section>
+
+      <section id="sec-stats" class="card">
+        <h2>Statistics</h2>
+        <div id="statsGrid" class="stat-grid"></div>
+        <div class="two-col">
+          <div><h3>Top keywords</h3><ol id="topKeywords" class="plain-list"></ol></div>
+          <div><h3>By category</h3><ul id="byCategory" class="plain-list"></ul></div>
+        </div>
+        <div class="toolbar"><button id="resetStats" type="button" class="danger">Reset statistics</button></div>
+      </section>
+
+      <section id="sec-backup" class="card">
+        <h2>Backup and reset</h2>
+        <p class="lead">Your settings and keyword changes live only in this browser. Export them to move to another computer.</p>
+        <div class="toolbar">
+          <button id="exportBtn" type="button">Export configuration</button>
+          <button id="importBtn" type="button">Import configuration</button>
+          <input id="importFile" type="file" accept="application/json,.json" hidden>
+          <button id="defaultsBtn" type="button" class="danger">Restore default settings</button>
+        </div>
+        <p id="backupMsg" class="msg" role="status"></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="../data/keywords.js"></script>
+  <script src="../shared/config.js"></script>
+  <script src="../content/filtering-engine.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

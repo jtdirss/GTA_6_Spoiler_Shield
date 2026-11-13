@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "GTA 6 Spoiler Shield",
+  "version": "1.0.0",
+  "description": "Hides YouTube videos and Shorts whose titles suggest GTA VI content, so you can avoid spoilers. YouTube only. Everything runs locally.",
+  "minimum_chrome_version": "105",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "action": {
+    "default_title": "GTA 6 Spoiler Shield",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": [
+        "data/keywords.js",
+        "shared/config.js",
+        "content/filtering-engine.js",
+        "content/dom-observer.js",
+        "content/youtube.js"
+      ],
+      "css": ["content/youtube.css"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}

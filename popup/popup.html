@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GTA 6 Spoiler Shield</title>
+  <link rel="stylesheet" href="../shared/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="head">
+    <img class="logo" src="../assets/icons/icon48.png" alt="" width="40" height="40">
+    <div class="titles">
+      <h1>GTA 6 Spoiler Shield</h1>
+      <p id="statusText" class="status-text">Loading…</p>
+    </div>
+    <label class="switch" title="Turn filtering on or off">
+      <input id="master" type="checkbox" aria-label="Filtering on or off">
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <div id="statusPill" class="pill" data-state="idle" role="status">
+    <span class="dot" aria-hidden="true"></span>
+    <span id="pillText">Checking this tab…</span>
+  </div>
+
+  <section class="block" aria-labelledby="modeLabel">
+    <h2 id="modeLabel">Filtering mode</h2>
+    <div class="modes" role="radiogroup" aria-labelledby="modeLabel">
+      <button type="button" role="radio" data-mode="balanced" aria-checked="false">Balanced</button>
+      <button type="button" role="radio" data-mode="strict" aria-checked="false">Strict</button>
+      <button type="button" role="radio" data-mode="custom" aria-checked="false">Custom</button>
+    </div>
+    <p id="modeHelp" class="help"></p>
+  </section>
+
+  <section class="stats" aria-label="Statistics">
+    <div class="stat"><span id="statSession" class="num">0</span><span class="lbl">Blocked this session</span></div>
+    <div class="stat"><span id="statTab" class="num">–</span><span class="lbl">Hidden on this page</span></div>
+    <div class="stat"><span id="statKeywords" class="num">0</span><span class="lbl">Active keywords</span></div>
+  </section>
+
+  <footer class="foot">
+    <button id="openSettings" type="button" class="primary">Open settings</button>
+  </footer>
+
+  <script src="../data/keywords.js"></script>
+  <script src="../shared/config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

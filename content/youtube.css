@@ -1,0 +1,65 @@
+/*
+ * GTA 6 Spoiler Shield - styles injected into YouTube.
+ * Every rule is gated by the data-gta6ss attribute, so this file does nothing
+ * until the extension marks an element. Removing the attribute restores it.
+ */
+
+/* Waiting for YouTube to render the title: invisible but keeps its layout. */
+[data-gta6ss="pending"],
+[data-gta6ss="pending"] * {
+  visibility: hidden !important;
+}
+
+/* Blocked: gone from the layout so the grid closes up. */
+:not(ytd-reel-video-renderer)[data-gta6ss="hidden"] {
+  display: none !important;
+}
+
+/* The full-screen Shorts feed positions items by their size, so blocked Shorts
+   keep their space but show nothing (the extension then skips past them). */
+ytd-reel-video-renderer[data-gta6ss="hidden"],
+ytd-reel-video-renderer[data-gta6ss="hidden"] * {
+  visibility: hidden !important;
+}
+
+/* Optional placeholder: the card keeps its box, its contents are hidden. */
+[data-gta6ss="placeholder"] > :not(.gta6ss-ph) {
+  display: none !important;
+}
+
+.gta6ss-ph {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 84px;
+  padding: 14px 16px;
+  border: 1px dashed rgba(150, 140, 190, 0.45);
+  border-radius: 12px;
+  background: rgba(150, 140, 190, 0.08);
+  color: var(--yt-spec-text-secondary, #a9a3c4);
+  font: 500 13px/1.4 Roboto, Arial, sans-serif;
+  text-align: center;
+}
+
+ytd-reel-video-renderer[data-gta6ss="placeholder"] .gta6ss-ph {
+  height: 100%;
+  border-radius: 0;
+}
+
+.gta6ss-ph button {
+  all: unset;
+  box-sizing: border-box;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(150, 140, 190, 0.22);
+  color: var(--yt-spec-text-primary, #f1f1f1);
+  font: 500 12px/1 Roboto, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.gta6ss-ph button:hover { background: rgba(150, 140, 190, 0.38); }
+.gta6ss-ph button:focus-visible { outline: 2px solid #ff5ea8; outline-offset: 2px; }
